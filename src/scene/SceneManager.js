@@ -10,6 +10,7 @@ export class SceneManager {
     this.cannonModel = null;
     this.cloudModel = null;
     this.cannonPosition = { x: -10 };
+    this.cannonAngle = 45; // Default cannon angle
     
     this.ground = null;
   }
@@ -71,7 +72,7 @@ export class SceneManager {
         (gltf) => {
           this.cannonModel = gltf.scene;
           this.cannonModel.scale.set(0.009, 0.009, 0.009);
-          this.cannonModel.position.set(this.cannonPosition.x, 0, 0);
+          this.cannonModel.position.set(this.cannonPosition.x, 0.1, 0);
           
           // Enable shadows
           this.cannonModel.traverse((child) => {
@@ -122,7 +123,24 @@ export class SceneManager {
     }
   }
 
+  updateCannonAngle() {
+    if (this.cannonModel) {
+      this.cannonModel.traverse((child) => {
+        if (child.name && child.name.includes("Cylinder")) {
+          child.rotation.z = THREE.MathUtils.degToRad(this.cannonAngle / 2.9);
+        }
+      });
+    }
+  }
+
   getCannonPosition() {
-    return new THREE.Vector3(this.cannonPosition.x + 0.5, 0.2, 0);
+    // Calculate barrel end position based on angle
+    const angleRad = THREE.MathUtils.degToRad(this.cannonAngle);
+    const barrelLength = 1.0; // Approximate barrel length
+    
+    const barrelEndX = this.cannonPosition.x + Math.cos(angleRad) * barrelLength;
+    const barrelEndY = 0.3 + Math.sin(angleRad) * barrelLength;
+    
+    return new THREE.Vector3(barrelEndX, barrelEndY, 0);
   }
 }

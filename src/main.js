@@ -99,6 +99,9 @@ class ProjectileSimulator {
     cannonFolder.add(this.sceneManager.cannonPosition, 'x', -15, 15, 0.1)
       .name('Position X')
       .onChange(() => this.sceneManager.updateCannonPosition());
+    cannonFolder.add(this.sceneManager, 'cannonAngle', 0, 90, 1)
+      .name('Barrel Angle (°)')
+      .onChange(() => this.sceneManager.updateCannonAngle());
     
     // Physics parameters
     const physicsFolder = this.gui.addFolder('⚡ Physics Parameters');
@@ -159,6 +162,9 @@ class ProjectileSimulator {
 
   launch() {
     if (this.isAnimating) return;
+    
+    // Update physics engine launch angle to match cannon angle
+    this.physicsEngine.parameters.launchAngle = this.sceneManager.cannonAngle;
     
     const cannonPos = this.sceneManager.getCannonPosition();
     this.projectileManager.launch(cannonPos);
