@@ -70,7 +70,7 @@ export class SceneManager {
         './cannon.glb',
         (gltf) => {
           this.cannonModel = gltf.scene;
-          this.cannonModel.scale.set(2, 2, 2);
+          this.cannonModel.scale.set(0.5, 0.5, 0.5);
           this.cannonModel.position.set(this.cannonPosition.x, 0, 0);
           
           // Enable shadows
@@ -123,6 +123,6 @@ export class SceneManager {
   }
 
   getCannonPosition() {
-    return new THREE.Vector3(this.cannonPosition.x, 1, 0);
+    return new THREE.Vector3(this.cannonPosition.x + 1.5, 1.2, 0);
   }
 }
