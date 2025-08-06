@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projectile Motion Simulator</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        overflow: hidden;
+        height: 100vh;
+      }
+      
+      #app {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+      
+      canvas {
+        display: block;
+        cursor: grab;
+      }
+      
+      canvas:active {
+        cursor: grabbing;
+      }
+      
+      .info-panel {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 14px;
+        max-width: 300px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .info-panel h3 {
+        margin-bottom: 10px;
+        color: #4fc3f7;
+      }
+      
+      .info-panel p {
+        margin-bottom: 5px;
+        line-height: 1.4;
+      }
+      
+      .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 18px;
+        text-align: center;
+      }
+      
+      .loading::after {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s ease-in-out infinite;
+        margin-left: 10px;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="loading" id="loading">Loading 3D Models...</div>
+      <div class="info-panel" id="info-panel" style="display: none;">
+        <h3>🎯 Projectile Motion Simulator</h3>
+        <p><strong>Controls:</strong></p>
+        <p>• Use GUI to adjust physics parameters</p>
+        <p>• Move cannon horizontally</p>
+        <p>• Launch projectiles and observe realistic motion</p>
+        <p>• Reset scene anytime</p>
+        <p><strong>Physics:</strong> Gravity, air resistance, and bouncing included!</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
