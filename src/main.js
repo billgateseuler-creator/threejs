@@ -163,11 +163,12 @@ class ProjectileSimulator {
   launch() {
     if (this.isAnimating) return;
     
-    // Update physics engine launch angle to match cannon angle
-    this.physicsEngine.parameters.launchAngle = this.sceneManager.cannonAngle;
-    
+    // Get cannon position and angle
     const cannonPos = this.sceneManager.getCannonPosition();
-    this.projectileManager.launch(cannonPos);
+    const cannonAngle = this.sceneManager.cannonAngle;
+    
+    // Launch projectile from barrel tip with cannon's angle
+    this.projectileManager.launch(cannonPos, cannonAngle);
     this.isAnimating = true;
   }
 

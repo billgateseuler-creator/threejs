@@ -12,7 +12,7 @@ export class ProjectileManager {
     this.maxTrailPoints = 200;
   }
 
-  launch(startPosition) {
+  launch(startPosition, launchAngle) {
     // Play launch sound
     this.audioManager.playLaunchSound();
     
@@ -20,7 +20,7 @@ export class ProjectileManager {
     this.audioManager.startWindSound();
     
     // Create projectile
-    const projectile = this.createProjectile(startPosition);
+    const projectile = this.createProjectile(startPosition, launchAngle);
     
     // Remove oldest projectile if we have too many
     if (this.projectiles.length >= this.maxProjectiles) {
@@ -36,7 +36,7 @@ export class ProjectileManager {
 
   createProjectile(startPosition) {
     // Create sphere geometry for projectile
-    const geometry = new THREE.SphereGeometry(0.5, 16, 16);
+    const geometry = new THREE.SphereGeometry(0.25, 16, 16);
     const material = new THREE.MeshPhongMaterial({ 
       color: 0xff4444,
       shininess: 100,

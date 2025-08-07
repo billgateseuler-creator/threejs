@@ -134,12 +134,14 @@ export class SceneManager {
   }
 
   getCannonPosition() {
-    // Calculate barrel end position based on angle
+    // Calculate barrel tip position from the actual cannon model
     const angleRad = THREE.MathUtils.degToRad(this.cannonAngle);
-    const barrelLength = 2.5; // Increased barrel length for small cannon scale
+    const barrelLength = 4.0; // Adjusted for small cannon scale to reach barrel tip
     
+    // Calculate from cannon base position with proper barrel offset
+    const cannonBaseHeight = 0.8; // Height of cannon base from ground
     const barrelEndX = this.cannonPosition.x + Math.cos(angleRad) * barrelLength;
-    const barrelEndY = 0.5 + Math.sin(angleRad) * barrelLength; // Adjusted base height
+    const barrelEndY = cannonBaseHeight + Math.sin(angleRad) * barrelLength;
     
     return new THREE.Vector3(barrelEndX, barrelEndY, 0);
   }

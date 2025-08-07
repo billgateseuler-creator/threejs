@@ -4,7 +4,6 @@ export class PhysicsEngine {
   constructor() {
     this.parameters = {
       initialSpeed: 25,
-      launchAngle: 45,
       mass: 1,
       gravity: 9.8,
       airResistance: 0.47,
@@ -16,36 +15,31 @@ export class PhysicsEngine {
         mass: 0.41,
         airResistance: 0.47,
         restitution: 0.6,
-        initialSpeed: 25,
-        launchAngle: 45
+        initialSpeed: 25
       },
       basketball: {
         mass: 0.62,
         airResistance: 0.47,
         restitution: 0.85,
-        initialSpeed: 20,
-        launchAngle: 50
+        initialSpeed: 20
       },
       tennis: {
         mass: 0.057,
         airResistance: 0.47,
         restitution: 0.75,
-        initialSpeed: 30,
-        launchAngle: 15
+        initialSpeed: 30
       },
       bowling: {
         mass: 7.26,
         airResistance: 0.47,
         restitution: 0.2,
-        initialSpeed: 15,
-        launchAngle: 10
+        initialSpeed: 15
       },
       custom: {
         mass: 1,
         airResistance: 0.47,
         restitution: 0.8,
-        initialSpeed: 25,
-        launchAngle: 45
+        initialSpeed: 25
       }
     };
   }
@@ -56,8 +50,8 @@ export class PhysicsEngine {
     }
   }
 
-  calculateInitialVelocity() {
-    const angleRad = (this.parameters.launchAngle * Math.PI) / 180;
+  calculateInitialVelocity(launchAngle) {
+    const angleRad = (launchAngle * Math.PI) / 180;
     const speed = this.parameters.initialSpeed;
     
     return new THREE.Vector3(
@@ -109,13 +103,13 @@ export class PhysicsEngine {
     }
     
     // Check if projectile has stopped
-    const isMoving = velocity.length() > 0.1 || position.y > 0.5;
+    const isMoving = velocity.length() > 0.1 || position.y > 0.25;
     return isMoving;
   }
 
-  calculateTrajectoryPoints(startPosition, numPoints = 100) {
+  calculateTrajectoryPoints(startPosition, launchAngle, numPoints = 100) {
     const points = [];
-    const initialVel = this.calculateInitialVelocity();
+    const initialVel = this.calculateInitialVelocity(launchAngle);
     
     let pos = startPosition.clone();
     let vel = initialVel.clone();
