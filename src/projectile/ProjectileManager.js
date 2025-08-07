@@ -34,7 +34,7 @@ export class ProjectileManager {
     this.trails.push(trail);
   }
 
-  createProjectile(startPosition) {
+  createProjectile(startPosition, launchAngle) {
     // Create sphere geometry for projectile
     const geometry = new THREE.SphereGeometry(0.25, 16, 16);
     const material = new THREE.MeshPhongMaterial({ 
@@ -52,7 +52,7 @@ export class ProjectileManager {
     return {
       mesh,
       position: startPosition.clone(),
-      velocity: this.physicsEngine.calculateInitialVelocity(),
+      velocity: this.physicsEngine.calculateInitialVelocity(launchAngle),
       isActive: true,
       trailPoints: []
     };
