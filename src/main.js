@@ -107,7 +107,6 @@ class ProjectileSimulator {
     const physicsFolder = this.gui.addFolder('⚡ Physics Parameters');
     const params = this.physicsEngine.parameters;
     
-    physicsFolder.add(params, 'initialSpeed', 5, 50, 0.5).name('Initial Speed (m/s)');
     physicsFolder.add(params, 'mass', 0.1, 10, 0.1).name('Mass (kg)');
     physicsFolder.add(params, 'gravity', 1, 20, 0.1).name('Gravity (m/s²)');
     physicsFolder.add(params, 'airResistance', 0, 2, 0.01).name('Air Resistance');
